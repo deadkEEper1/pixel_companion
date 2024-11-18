@@ -1,13 +1,14 @@
-import { Resolver, Query } from '@nestjs/graphql';
+import { Resolver, Query, Args } from '@nestjs/graphql';
 import { DungeonsService } from './dungeons.service';
+import { Dungeon } from "./entities/dungeon.entity";
 
 @Resolver()
 export class DungeonsResolver {
     constructor(private readonly dungeonsService: DungeonsService) {
     }
 
-    @Query( () => String)
-    getDungeon(): string {
-        return this.dungeonsService.getDungeon();
+    @Query( () => Dungeon)
+    async getDungeon(@Args('seed') seed: string): Promise<Dungeon|null> {
+        return this.dungeonsService.getDungeonBySeedOrCreateOne(seed);
     }
 }

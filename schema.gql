@@ -2,7 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Dungeon {
+  id: ID!
+
+  """Seed value"""
+  seed: String!
+}
+
 type Query {
   hello: String!
-  getDungeon: String!
+  getDungeon(seed: String!): Dungeon!
 }
