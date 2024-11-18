@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { AppResolver} from './app.resolver';
 import { DungeonsModule } from "./dungeons/dungeons.module";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Dungeon } from "./dungeons/entities/dungeon.entity";
@@ -27,6 +25,6 @@ import { Dungeon } from "./dungeons/entities/dungeon.entity";
     DungeonsModule,
   ],
   controllers: [],
-  providers: [AppService, AppResolver],
+  providers: [],
 })
 export class AppModule {}

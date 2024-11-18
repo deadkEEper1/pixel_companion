@@ -12,10 +12,6 @@ export class DungeonsService {
     ) {
     }
 
-    async getDungeon(): Promise<Dungeon[]> {
-        return await this.dungeonRepo.find();
-    }
-
     async getDungeonBySeedOrCreateOne(seed: string): Promise<Dungeon> {
         let seedDungeon = await this.dungeonRepo.findOne({where: {seed}});
         if (!seedDungeon) {

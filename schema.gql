@@ -10,6 +10,5 @@ type Dungeon {
 }
 
 type Query {
-  hello: String!
   getDungeon(seed: String!): Dungeon!
 }
