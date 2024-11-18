@@ -5,6 +5,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppResolver} from './app.resolver';
 import { DungeonsModule } from "./dungeons/dungeons.module";
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Dungeon } from "./dungeons/entities/dungeon.entity";
 
 @Module({
   imports: [
@@ -19,7 +20,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'Jura',
       password: 'admin',
       database: 'pixel_companion',
-      logging: true
+      logging: true,
+      entities: [Dungeon],
+      synchronize: true,
     }),
     DungeonsModule,
   ],
