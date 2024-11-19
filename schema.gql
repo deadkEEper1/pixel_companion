@@ -2,11 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Level {
+  """Level's dungeon"""
+  dungeon: Dungeon!
+
+  """Level number"""
+  level: Float!
+}
+
 type Dungeon {
   id: ID!
 
   """Seed value"""
   seed: String!
+
+  """Levels of the dungeon"""
+  levels: [Level!]!
 }
 
 type Query {

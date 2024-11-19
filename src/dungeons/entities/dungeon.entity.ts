@@ -13,6 +13,7 @@ export class Dungeon {
     @Column()
     seed: string;
 
+    @Field(() => [Level], {description: 'Levels of the dungeon'})
     @OneToMany(() => Level, (level) => level.dungeon, {cascade: true})
     levels: Level[];
 }
