@@ -4,6 +4,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { DungeonsModule } from "./dungeons/dungeons.module";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Dungeon } from "./dungeons/entities/dungeon.entity";
+import { LevelModule } from './level/level.module';
+import { Level } from './level/entities/level.entity';
 
 @Module({
   imports: [
@@ -19,10 +21,11 @@ import { Dungeon } from "./dungeons/entities/dungeon.entity";
       password: 'admin',
       database: 'pixel_companion',
       logging: true,
-      entities: [Dungeon],
+      entities: [Dungeon, Level],
       synchronize: true,
     }),
     DungeonsModule,
+    LevelModule,
   ],
   controllers: [],
   providers: [],
