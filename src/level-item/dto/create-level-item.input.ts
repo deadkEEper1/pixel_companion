@@ -1,7 +1,7 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateDungeonInput {
+export class CreateLevelItemInput {
   @Field(() => Int, { description: 'Example field (placeholder)' })
-  seed: string;
+  exampleField: number;
 }

@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { DungeonsModule } from "./dungeons/dungeons.module";
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Dungeon } from "./dungeons/entities/dungeon.entity";
+import { DungeonsModule } from "./dungeons/dungeons.module";
 import { LevelModule } from './level/level.module';
-import { Level } from './level/entities/level.entity';
+import { LevelItemModule } from './level-item/level-item.module';
 
+import { Dungeon } from "./dungeons/entities/dungeon.entity";
+import { Level } from './level/entities/level.entity';
+import { LevelItem } from './level-item/entities/level-item.entity';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -21,11 +23,12 @@ import { Level } from './level/entities/level.entity';
       password: 'admin',
       database: 'pixel_companion',
       logging: true,
-      entities: [Dungeon, Level],
+      entities: [Dungeon, Level, LevelItem],
       synchronize: true,
     }),
     DungeonsModule,
     LevelModule,
+    LevelItemModule,
   ],
   controllers: [],
   providers: [],

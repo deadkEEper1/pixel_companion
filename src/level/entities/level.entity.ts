@@ -1,6 +1,7 @@
 import {ObjectType, Field} from '@nestjs/graphql';
-import {ManyToOne, Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import {ManyToOne, OneToMany, Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 import {Dungeon} from '../../dungeons/entities/dungeon.entity';
+import {LevelItem} from "../../level-item/entities/level-item.entity";
 
 @ObjectType()
 @Entity('level')
@@ -15,4 +16,8 @@ export class Level {
     @Field(() => Number, {description: 'Level number'})
     @Column()
     level: number
+
+    @Field(() => [LevelItem], {description: 'Items to be found on the level'})
+    @OneToMany(() => LevelItem, (levelItem) => levelItem.level, {cascade: true})
+    items: LevelItem[];
 }
