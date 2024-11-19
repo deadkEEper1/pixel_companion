@@ -30,22 +30,13 @@ type Dungeon {
 
 type Query {
   getDungeon(seed: String!): Dungeon!
-  levelItem(id: Int!): LevelItem!
 }
 
 type Mutation {
   createLevelItem(createLevelItemInput: CreateLevelItemInput!): LevelItem!
-  updateLevelItem(updateLevelItemInput: UpdateLevelItemInput!): LevelItem!
-  removeLevelItem(id: Int!): LevelItem!
 }
 
 input CreateLevelItemInput {
   """Example field (placeholder)"""
   exampleField: Int!
-}
-
-input UpdateLevelItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
