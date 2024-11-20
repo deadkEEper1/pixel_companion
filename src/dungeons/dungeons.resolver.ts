@@ -7,6 +7,12 @@ export class DungeonsResolver {
     constructor(private readonly dungeonsService: DungeonsService) {
     }
 
+
+    @Query( () => String)
+    test(): string {
+        return 'Hello World!';
+    }
+
     @Query( () => Dungeon)
     async getDungeon(@Args('seed') seed: string): Promise<Dungeon|null> {
         return this.dungeonsService.getDungeonBySeedOrCreateOne(seed);
