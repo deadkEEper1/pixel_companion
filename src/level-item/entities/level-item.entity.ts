@@ -11,6 +11,7 @@ export enum ItemType {
 @ObjectType()
 export class LevelItem {
     @PrimaryGeneratedColumn('uuid')
+    @Field(() => String, {description: 'Unique identifier of the item'})
     id: string;
 
     @Field(() => Level, {description: 'Level number'})

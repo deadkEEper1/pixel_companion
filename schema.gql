@@ -3,6 +3,9 @@
 # ------------------------------------------------------
 
 type LevelItem {
+  """Unique identifier of the item"""
+  id: String!
+
   """Level number"""
   level: Level!
 
