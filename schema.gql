@@ -6,11 +6,23 @@ type LevelItem {
   """Level number"""
   level: Level!
 
-  """Item name"""
-  name: String!
+  """image file name"""
+  image: String!
+
+  """Item type"""
+  type: String!
+
+  """Color of the potion"""
+  color: String!
+
+  """Effect of the potion"""
+  effect: String!
 }
 
 type Level {
+  """Level's id"""
+  id: String!
+
   """Level's dungeon"""
   dungeon: Dungeon!
 
@@ -42,5 +54,14 @@ type Mutation {
 
 input CreateLevelItemInput {
   """Example field (placeholder)"""
-  exampleField: Int!
+  levelId: ID!
+
+  """Item type"""
+  type: String!
+
+  """Potion color"""
+  color: String!
+
+  """image"""
+  image: String!
 }

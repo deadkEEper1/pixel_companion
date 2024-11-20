@@ -8,6 +8,7 @@ import {LevelItem} from "../../level-item/entities/level-item.entity";
 @Unique(['dungeon', 'level'])
 export class Level {
     @PrimaryGeneratedColumn('uuid')
+    @Field(() => String, {description: 'Level\'s id'})
     id: string;
 
     @Field(() => Dungeon, {description: 'Level\'s dungeon'})
