@@ -31,7 +31,7 @@ export class LevelItem {
     @Column({type: 'varchar'})
     color: string;
 
-    @Field(() => String, {description: 'Effect of the potion'})
     @Column({type: 'varchar', nullable: true})
-    effect: string;
+    @Field({nullable: true})
+    effect?: string;
 }

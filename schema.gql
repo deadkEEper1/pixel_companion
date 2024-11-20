@@ -17,9 +17,7 @@ type LevelItem {
 
   """Color of the potion"""
   color: String!
-
-  """Effect of the potion"""
-  effect: String!
+  effect: String
 }
 
 type Level {
