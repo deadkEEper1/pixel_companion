@@ -20,6 +20,6 @@ export class Level {
     level: number
 
     @Field(() => [LevelItem], {description: 'Items to be found on the level'})
-    @OneToMany(() => LevelItem, (levelItem) => levelItem.level, {cascade: true})
+    @OneToMany(() => LevelItem, (levelItem) => levelItem.level, {cascade: true, eager: true})
     items: LevelItem[];
 }

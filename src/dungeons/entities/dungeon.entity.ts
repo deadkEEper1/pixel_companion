@@ -14,6 +14,6 @@ export class Dungeon {
     seed: string;
 
     @Field(() => [Level], {description: 'Levels of the dungeon'})
-    @OneToMany(() => Level, (level) => level.dungeon, {cascade: true})
+    @OneToMany(() => Level, (level) => level.dungeon, {eager: true, cascade: true})
     levels: Level[];
 }

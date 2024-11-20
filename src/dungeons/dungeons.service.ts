@@ -4,6 +4,7 @@ import {Repository} from 'typeorm';
 
 import {Dungeon} from "./entities/dungeon.entity";
 import {Level} from "../level/entities/level.entity";
+import {FindOneOptions} from "typeorm/find-options/FindOneOptions";
 
 @Injectable()
 export class DungeonsService {
@@ -23,28 +24,29 @@ export class DungeonsService {
             });
     }
 
-    async createDungeon(seed: string): Promise<Dungeon> {
+    async createDungeon(seed: string): Promise<void> {
         const dungeon = this.dungeonRepo.create({seed});
         dungeon.levels = this.createLevels(dungeon);
-        return this.dungeonRepo.save(dungeon);
+        await this.dungeonRepo.save(dungeon);
     }
 
     async getDungeonBySeedOrCreateOne(seed: string): Promise<Dungeon> {
-        let seedDungeon = await this.dungeonRepo.findOne(
-            {
-                where: {seed},
-                relations: ['levels', 'levels.items'],
-                order: {
-                    levels: {
-                        level: 'ASC', // Order levels by their "level" property in ascending order
-                    },
+        const dungeonCriteria = {
+            where: {seed},
+            relations: ['levels', 'levels.items'],
+            order: {
+                levels: {
+                    level: 'ASC', // Order levels by their "level" property in ascending order
                 },
-            }
-        );
-        if (!seedDungeon) {
-            seedDungeon = await this.createDungeon(seed);
-        }
+            },
+        } as FindOneOptions<Dungeon>;
 
+        let seedDungeon = await this.dungeonRepo.findOne(dungeonCriteria);
+
+        if (!seedDungeon) {
+            await this.createDungeon(seed);
+        }
+        seedDungeon = await this.dungeonRepo.findOne(dungeonCriteria)
         return seedDungeon;
     }
 }
