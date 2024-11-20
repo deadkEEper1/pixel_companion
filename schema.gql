@@ -5,6 +5,9 @@
 type LevelItem {
   """Level number"""
   level: Level!
+
+  """Item name"""
+  name: String!
 }
 
 type Level {

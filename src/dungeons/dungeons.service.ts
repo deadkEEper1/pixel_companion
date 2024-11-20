@@ -24,13 +24,23 @@ export class DungeonsService {
     }
 
     async createDungeon(seed: string): Promise<Dungeon> {
-        const dungeon = this.dungeonRepo.create({seed, levels: [{level: 1}]});
+        const dungeon = this.dungeonRepo.create({seed});
         dungeon.levels = this.createLevels(dungeon);
         return this.dungeonRepo.save(dungeon);
     }
 
     async getDungeonBySeedOrCreateOne(seed: string): Promise<Dungeon> {
-        let seedDungeon = await this.dungeonRepo.findOne({where: {seed}, relations: ['levels', 'levels.items']});
+        let seedDungeon = await this.dungeonRepo.findOne(
+            {
+                where: {seed},
+                relations: ['levels', 'levels.items'],
+                order: {
+                    levels: {
+                        level: 'ASC', // Order levels by their "level" property in ascending order
+                    },
+                },
+            }
+        );
         if (!seedDungeon) {
             seedDungeon = await this.createDungeon(seed);
         }

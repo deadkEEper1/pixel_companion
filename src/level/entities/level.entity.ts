@@ -1,10 +1,11 @@
 import {ObjectType, Field} from '@nestjs/graphql';
-import {ManyToOne, OneToMany, Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import {ManyToOne, OneToMany, Entity, Column, PrimaryGeneratedColumn, Unique} from 'typeorm';
 import {Dungeon} from '../../dungeons/entities/dungeon.entity';
 import {LevelItem} from "../../level-item/entities/level-item.entity";
 
 @ObjectType()
 @Entity('level')
+@Unique(['dungeon', 'level'])
 export class Level {
     @PrimaryGeneratedColumn('uuid')
     id: string;
