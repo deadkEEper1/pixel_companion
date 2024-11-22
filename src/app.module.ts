@@ -22,7 +22,7 @@ import { LevelItem } from './level-item/entities/level-item.entity';
       username: 'Jura',
       password: 'admin',
       database: 'pixel_companion',
-      // logging: true,
+      logging: true,
       entities: [Dungeon, Level, LevelItem],
       synchronize: true,
     }),
