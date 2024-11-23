@@ -5,16 +5,14 @@ import {Repository} from 'typeorm';
 import {Dungeon} from "./entities/dungeon.entity";
 import {Level} from "../level/entities/level.entity";
 import {FindOneOptions} from "typeorm/find-options/FindOneOptions";
-
-import { exec } from 'child_process';
-const util = require('util');
-const execPromise = util.promisify(exec);
+import {CliService} from "../cli/cli.service";
 
 @Injectable()
 export class DungeonsService {
     constructor(
         @InjectRepository(Dungeon)
-        private dungeonRepo: Repository<Dungeon>
+        private dungeonRepo: Repository<Dungeon>,
+        private cliService: CliService,
     ) {
     }
 
@@ -28,18 +26,8 @@ export class DungeonsService {
             });
     }
 
-    private async fetchDungeonItemsSummary(dungeon: Dungeon): Promise<string> {
-        try {
-            const command = `cd C:\\pixel_dungeon\\seed-finder-2.5.4 && java -jar seed-finder.jar 4 ${dungeon.seed}`;
-            const executionResult = await execPromise(command);
-            return  executionResult.stdout;
-        }catch (e) {
-            console.error(e);
-        }
-    }
-
     private async populateDungeonWithItems(dungeon: Dungeon): Promise<void> {
-        const itemsSummary = await this.fetchDungeonItemsSummary(dungeon);
+        const itemsSummary = await this.cliService.fetchDungeonItemsSummary(dungeon);
         console.log('itemsSummary\n', itemsSummary);
     }
 

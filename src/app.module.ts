@@ -9,6 +9,8 @@ import { LevelItemModule } from './level-item/level-item.module';
 import { Dungeon } from "./dungeons/entities/dungeon.entity";
 import { Level } from './level/entities/level.entity';
 import { LevelItem } from './level-item/entities/level-item.entity';
+import { CliModule } from './cli/cli.module';
+
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -22,13 +24,14 @@ import { LevelItem } from './level-item/entities/level-item.entity';
       username: 'Jura',
       password: 'admin',
       database: 'pixel_companion',
-      logging: true,
+      // logging: true,
       entities: [Dungeon, Level, LevelItem],
       synchronize: true,
     }),
     DungeonsModule,
     LevelModule,
     LevelItemModule,
+    CliModule,
   ],
   controllers: [],
   providers: [],
