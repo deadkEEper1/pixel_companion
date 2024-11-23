@@ -37,8 +37,8 @@ export class LevelItemService {
         return `This action returns a #${id} levelItem`;
     }
 
-    update(id: number, updateLevelItemInput: UpdateLevelItemInput) {
-        return `This action updates a #${id} levelItem`;
+    async update(id: string, updateLevelItemInput: UpdateLevelItemInput) {
+        return this.levelItemRepo.update({id}, updateLevelItemInput as LevelItem);
     }
 
     remove(id: number) {

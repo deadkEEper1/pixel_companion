@@ -51,6 +51,7 @@ type Query {
 
 type Mutation {
   createLevelItem(createLevelItemInput: CreateLevelItemInput!): LevelItem!
+  updateLevelItem(id: String!, updateLevelItemInput: UpdateLevelItemInput!): String!
 }
 
 input CreateLevelItemInput {
@@ -65,4 +66,19 @@ input CreateLevelItemInput {
 
   """image"""
   image: String!
+}
+
+input UpdateLevelItemInput {
+  """Example field (placeholder)"""
+  levelId: ID
+
+  """Item type"""
+  type: String
+
+  """Potion color"""
+  color: String
+
+  """image"""
+  image: String
+  effect: String!
 }
