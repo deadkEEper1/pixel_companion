@@ -6,6 +6,10 @@ import {Dungeon} from "./entities/dungeon.entity";
 import {Level} from "../level/entities/level.entity";
 import {FindOneOptions} from "typeorm/find-options/FindOneOptions";
 
+import { exec } from 'child_process';
+const util = require('util');
+const execPromise = util.promisify(exec);
+
 @Injectable()
 export class DungeonsService {
     constructor(
@@ -24,10 +28,25 @@ export class DungeonsService {
             });
     }
 
-    async createDungeon(seed: string): Promise<void> {
+    private async fetchDungeonItemsSummary(dungeon: Dungeon): Promise<string> {
+        try {
+            const command = `cd C:\\pixel_dungeon\\seed-finder-2.5.4 && java -jar seed-finder.jar 4 ${dungeon.seed}`;
+            const executionResult = await execPromise(command);
+            return  executionResult.stdout;
+        }catch (e) {
+            console.error(e);
+        }
+    }
+
+    private async populateDungeonWithItems(dungeon: Dungeon): Promise<void> {
+        const itemsSummary = await this.fetchDungeonItemsSummary(dungeon);
+        console.log('itemsSummary\n', itemsSummary);
+    }
+
+    async createDungeon(seed: string): Promise<Dungeon> {
         const dungeon = this.dungeonRepo.create({seed});
         dungeon.levels = this.createLevels(dungeon);
-        await this.dungeonRepo.save(dungeon);
+        return this.dungeonRepo.save(dungeon);
     }
 
     async getDungeonBySeedOrCreateOne(seed: string): Promise<Dungeon> {
@@ -44,7 +63,8 @@ export class DungeonsService {
         let seedDungeon = await this.dungeonRepo.findOne(dungeonCriteria);
 
         if (!seedDungeon) {
-            await this.createDungeon(seed);
+            const dungeon = await this.createDungeon(seed);
+            await this.populateDungeonWithItems(dungeon);
         }
         seedDungeon = await this.dungeonRepo.findOne(dungeonCriteria)
         return seedDungeon;
