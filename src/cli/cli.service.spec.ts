@@ -9,7 +9,8 @@ describe('CliService', () => {
       providers: [CliService],
     }).compile();
 
-    service = module.get<CliService>(CliService);
+    // TODO: ADD first test
+    // service = module.get<CliService>(CliService);
   });
 
   it('should be defined', () => {
